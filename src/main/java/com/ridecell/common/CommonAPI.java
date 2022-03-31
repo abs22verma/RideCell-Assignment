@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.ridecell.pojo.Users;
 import com.ridecell.utility.Config;
 import com.ridecell.utility.CustomException;
 import com.ridecell.utility.World;
@@ -19,11 +20,12 @@ import io.restassured.specification.RequestSpecification;
 public class CommonAPI {
 
 	private static Logger LOGGER = LogManager.getLogger();
-
+	
 	public static Response getResponse() {
+		Users user = new Users();
 		String apiURL = Config.getResource().getString("api");
-		String username = Config.getResource().getString("username");
-		String password = Config.getResource().getString("password");
+		String username = user.getUsername()!=null?user.getUsername():Config.getResource().getString("username");
+		String password = user.getPassword()!=null?user.getPassword():Config.getResource().getString("password");
 		LOGGER.info("Make GET request : " + apiURL);
 		Response response = null;
 		try {
